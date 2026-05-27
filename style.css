@@ -1,0 +1,269 @@
+:root {
+    /* Project Colors */
+    --color-cod-gray: #111;
+    --color-seashell: #f1f1f1;
+    --color-silver: #ccc;
+    --color-white: #fff;
+    --color-gallery: #eee;
+    --color-mercury: #e6e6e6;
+    --color-shalimar: #fff9c0;
+    --color-jelly-bean: #21759b;
+    --color-dove-gray: #666;
+    --color-royal-blue: #4169e1;
+    --color-fresh-eggplant: #800080;
+    --color-lucky-point: #191970;
+    --color-tundora: #404040;
+    --color-black: #000;
+
+    --c-background-button-netscape: var(--color-silver);
+    --c-link: blue;
+}
+
+html{
+    cursor: url('Cursors/Normal\ Select.cur'), auto;
+}
+
+@font-face {
+    font-family: 'Fonts/W95';
+    src: url('Fonts/W95\ Sans\ Serif.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+body {
+    font-family: 'Fonts/W95', sans-serif;
+    text-align: center;
+    margin-top: 50px;
+    background-color:#fff;
+
+    background-image: url('Images/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    margin: auto;
+}
+
+#folders {
+    display: flex;
+    justify-content: flex-start;
+    width: 75px;
+    margin-bottom: 35px;
+    margin-top: 0px;
+    text-align: center;
+}
+
+button:hover {
+    cursor: url('Cursors/Link\ Select.cur'), pointer;
+}
+
+.button--folder{
+    background-color: transparent;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    min-width: 90px;
+    color: #fff;
+    font-family: "Fonts/W95", sans-serif;
+    justify-content: center;
+    align-content: center;
+    vertical-align: middle;
+    margin-right: 30px;
+    margin-bottom: 15px;
+    gap: 5px;
+}
+
+.button--folder img{
+    align-self: center;
+    width: 50%;
+    height: auto;
+}
+
+.button--folder.selected img{
+    filter: sepia(100%) saturate(300%) brightness(50%) hue-rotate(180deg);
+}
+
+.button--folder.selected span {
+    background-color: #000080;
+    color: white !important;
+    border: 1px dotted white;
+}
+
+.button--netscape {
+    background: var(--c-background-button-netscape);
+    border-color: var(--color-gallery) var(--color-cod-gray) var(--color-cod-gray) var(--color-gallery);
+    border-radius: 0;
+    border-width: 2px;
+    cursor: pointer;
+    font-family:'Fonts/W95', sans-serif;
+    max-height: 18px;
+    min-width: 20px;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 7px;
+    vertical-align: middle;
+    font-size: 10px;
+
+    /* Zoom */
+    zoom: 1.5;
+
+    &:hover,
+    &:focus {
+        outline: 1px dotted var(--c-link);
+    }
+
+    &:active {
+        border-color: var(--color-cod-gray) transparent transparent var(--color-cod-gray);
+        padding: 4px 2px px 4px;
+    }
+
+    &::before {
+        display: flex;
+        flex: 0 0 24px;
+        height: 10px;
+        line-height: 0;
+        margin-right: 4px;
+        overflow: hidden;
+        padding-top: 2px;
+        width: 10px;
+    }
+}
+
+#bottomBlock {
+    height: 35px;
+    background-color:silver;
+    position: fixed;
+    display: flex;
+    justify-content: flex-start;
+    bottom: 0;
+    left: 0;
+    width: 100%; 
+    z-index: 1000;
+    border: 2px outset lightgray;
+}
+
+p{
+    font-family:'Fonts/W95', sans-serif;
+    font-weight: 15;
+    color:#111;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal {
+    background: rgba(255,0,0,0.1);
+    margin: auto;
+    display: none;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 150px;
+    width: 700px;
+    height: auto;
+    overflow: auto;
+    border: 2px outset lightgray;
+}
+
+.modal-content {
+    position: relative;
+    background-color: silver;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.close {
+    color: black;
+    font-size: 30x;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    background-color: silver;
+    padding-left: 5px;
+    padding-right: 7px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    height: 20px;
+    width: 10px;
+    position: absolute;
+    right: 5px;
+    border: 2px outset lightgray;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    background-color: darkblue;
+    color: white;
+    margin: auto;
+    height: 30px;
+    font-size: 20px;
+    justify-content: center;
+
+}
+
+.modal-header:hover {
+    cursor: url('Cursors/Move.cur'), auto;
+}
+
+.modal-body {
+    padding: 0px 1px;
+}
+
+input {
+    background-color: silver;
+    font-family: 'Fonts/W95', sans-serif;
+    border: none;
+    font-size: 18px;
+    color: black;
+}
+
+input:hover {
+    cursor: url('Cursors/Text\ Select.cur'), auto;
+}
+
+textarea {
+    font-family: 'Fonts/W95', sans-serif;
+}
+
+textarea:hover {
+    cursor: url('Cursors/Text\ Select.cur'), auto;
+}
+
+tbody{
+    background-color: white;
+}
+
+tbody:hover {
+     cursor: pointer;
+}
+
+th {
+    border: 2px outset lightgray;
+}
+
+td {
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: 1;
+}
+
+button {
+    font-family: 'Fonts/W95', sans-serif;
+}
+
+#inboxTable.dataTable thead th {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+div.dt-container div.dt-layout-row {
+    margin: 0px !important;
+}
