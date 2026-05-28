@@ -162,6 +162,7 @@ p{
     height: auto;
     overflow: auto;
     border: 2px outset lightgray;
+    overflow: hidden;
 }
 
 .modal-content {
