@@ -43,14 +43,58 @@ $(document).on("mousedown", ".modal, .modal *", function() {
   $(this).closest(".modal").css("z-index", ++highestZ);
 });
 
-$(document).on("dblclick", ".folder", function () {
-  let newModalID = 'folderModal-' + new Date().getTime(); 
-  var $modal = $('#folderModal').clone();
-  $modal.attr('id', newModalID);
+let counter = 0;
+function makeFolderModal($this){
+  let newModalID = 'folderModal-' + counter; 
+  var $modal = $('<div id="folderModal" class="modal" style="width: 525px"></div');
+  var $modalContent = $('<div class="modal-content"></div>');
+  var $modalHeader = $('<div class="modal-header" style="justify-content: left;"></div');
 
+  var $header = $('<h6 style="padding-left: 10px;" id="folderTitle-' + counter + '"></h6>');
+  var $span = $('<span class="close">&times;</span>')
+  var $modalBody = $('<div class="modal-body" style="text-align: left; padding:1px 1px 20px 1px"></div>');
+  var $modalOptions = $('<div style="display: flex; justify-content: flex-start; padding-left: 5px; margin: 0px; width:525px; border: 2px outset lightgray; border-top: none;"><p style="padding-right: 15px; margin-top: 0px; margin-bottom: 2px;"><u>F</u>ile</p><p style="padding-right: 15px;  margin-top: 0px; margin-bottom: 2px;"><u>E</u>dit</p><p style="padding-right: 15px;  margin-top: 0px; margin-bottom: 2px;"><u>V</u>iew</p><p style="padding-right: 15px;  margin-top: 0px;margin-bottom: 2px;"><u>H</u>elp</p></div>');
+  var $modalContainer = $('<div class="container" style="display: flex; margin-top: 25px; justify-content: center;"></div>');
+  var $folderButton = $('<button class="button--folder folder" type="button" style="text-align: center;"><img src="Icons/Folder.ico" alt="Icon"><span class="button-text" style="color: black;"></span></button>')
+
+  let buttonNameArray = [];
+  let natoAlphabet = 'Alpha,Bravo,Charlie,Delta/Echo,Foxtrot,Golf,Hotel/India,Juliette,Kilo,Lima/Mike,November,Oscar,Papa/Quebec,Romeo,Sierra,Tango/Uniform,Victor,Whisky,Xray/Whiskey,Xray,Yankee,Zulu';
+  let natoAlphArray = natoAlphabet.split('/');
+  for(let x of natoAlphArray){
+    console.log(x);
+    if(x.includes($($this[0].childNodes[2]).text())){
+      buttonNameArray = x;
+    }
+  }
+
+  for(let i = 0; i < 4; i++){
+    let names = buttonNameArray.split(',');
+    $newButton = $folderButton.clone(true);
+    $($newButton[0].childNodes[1]).text(names[i]);
+    $modalContainer.append($newButton);
+  }
+  $modalHeader.append($header, $span);
+  $modalBody.append($modalOptions, $modalContainer);
+  $modalContent.append($modalHeader, $modalBody);
+  $modal.append($modalContent);
+
+  $modal.attr('id', newModalID);
+  $header.text($this.text());
+
+  counter++;
+  return $modal;
+}
+$(document).on("dblclick", ".folder", async function () {
+  $modal = await makeFolderModal($(this));
+  let folderTop = Number($('#folderModal').css('top').split('p')[0]) + (counter * 20);
+  let folderLeft = Number($('#folderModal').css('left').split('%')[0]) + (counter * 2);
+
+  $modal.css('top',  "" + folderTop + "px");
+  $modal.css('left', "" + folderLeft + "%");
+  
   $('#folderModal').after($modal);
   dragModals($modal)
-  openModal(newModalID);
+  openModal($modal.attr('id'));
 });
 
 $(document).on("click", ".close", function () {
