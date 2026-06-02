@@ -9,6 +9,22 @@ document.getElementById("inboxButton").addEventListener("dblclick", () => {
   openModal('passwordModal');
 });
 
+document.getElementById("okButton").addEventListener("click", () => {
+  $("#computerModal").hide()
+});
+
+document.getElementById("computerButton").addEventListener("dblclick", () => {
+  openModal('computerModal');
+});
+
+document.getElementById("okNetworkButton").addEventListener("click", () => {
+  $("#networkModal").hide()
+});
+
+document.getElementById("networkButton").addEventListener("dblclick", () => {
+  openModal('networkModal');
+});
+
 document.getElementById("notepadButton").addEventListener("dblclick", () => {
   $('#notepadTitle').text('Untitled - Notepad');
   $('#notepadText').val('');
@@ -27,18 +43,6 @@ document.getElementById("musicButton").addEventListener("dblclick", () => {
   openModal('musicModal');
 });
 
-document.getElementById("submitButton").addEventListener("click", () => {
-  if ($('#emailUsername').val() == 'stevethompson@aol.com' && $('#password').val() == 'weezer') {
-    var inboxModal = document.getElementById("inboxModal");
-    inboxModal.style.display = "block";
-    document.getElementById("passwordModal").style.display = "none";
-    document.getElementById("incorrect").style.display = "none";
-  }
-  else {
-    document.getElementById("incorrect").style.display = "inline";
-  }
-});
-
 $(document).on("mousedown", ".modal, .modal *", function() {
   $(this).closest(".modal").css("z-index", ++highestZ);
 });
@@ -46,6 +50,8 @@ $(document).on("mousedown", ".modal, .modal *", function() {
 let counter = 0;
 function makeFolderModal($this){
   let newModalID = 'folderModal-' + counter; 
+  let thisText = $($this[0].childNodes[2]).text();
+  thisText = thisText == '' ? $($this[0].childNodes[1]).text() : thisText;
   var $modal = $('<div id="folderModal" class="modal" style="width: 525px"></div');
   var $modalContent = $('<div class="modal-content"></div>');
   var $modalHeader = $('<div class="modal-header" style="justify-content: left;"></div');
@@ -56,21 +62,45 @@ function makeFolderModal($this){
   var $modalOptions = $('<div style="display: flex; justify-content: flex-start; padding-left: 5px; margin: 0px; width:525px; border: 2px outset lightgray; border-top: none;"><p style="padding-right: 15px; margin-top: 0px; margin-bottom: 2px;"><u>F</u>ile</p><p style="padding-right: 15px;  margin-top: 0px; margin-bottom: 2px;"><u>E</u>dit</p><p style="padding-right: 15px;  margin-top: 0px; margin-bottom: 2px;"><u>V</u>iew</p><p style="padding-right: 15px;  margin-top: 0px;margin-bottom: 2px;"><u>H</u>elp</p></div>');
   var $modalContainer = $('<div class="container" style="display: flex; margin-top: 25px; justify-content: center;"></div>');
   var $folderButton = $('<button class="button--folder folder" type="button" style="text-align: center;"><img src="Icons/Folder.ico" alt="Icon"><span class="button-text" style="color: black;"></span></button>')
+  var $puzzleButton5 = $('<button class="button--folder folder" type="button" style="text-align: center;" id ="morePasswords"><img src="Icons/Notepad\ document.ico" alt="Icon"><span class="button-text" style="color: black;"></span></button>')
 
   let buttonNameArray = [];
-  let natoAlphabet = 'Alpha,Bravo,Charlie,Delta/Echo,Foxtrot,Golf,Hotel/India,Juliette,Kilo,Lima/Mike,November,Oscar,Papa/Quebec,Romeo,Sierra,Tango/Uniform,Victor,Whisky,Xray/Whiskey,Xray,Yankee,Zulu';
+  let natoAlphabet = 'Alpha,Bravo,Charlie,Delta/Echo,Foxtrot,Golf,Hotel/India,Juliette,Kilo,Lima/Mike,November,Oscar,Papa/Quebec,Romeo,Sierra,Tango/Uniform,Victor,Whisky,Xray/Whiskey,Xray,Yankee,Zulu/More Passwords';
   let natoAlphArray = natoAlphabet.split('/');
-  for(let x of natoAlphArray){
-    console.log(x);
-    if(x.includes($($this[0].childNodes[2]).text())){
-      buttonNameArray = x;
+  for(let i = 0; i < natoAlphArray.length - 1; i++){
+    if(natoAlphArray[i].includes(thisText)){
+      let index = i > 1 ? i - 2 : i + 5;
+      buttonNameArray = natoAlphArray[index];
     }
   }
 
-  for(let i = 0; i < 4; i++){
-    let names = buttonNameArray.split(',');
+  let length = $this.attr('id') != undefined && $this.attr('id') == 'puzzleButton4' ? 1 : 4;
+  console.log($this.attr('id'));
+  for(let i = 0; i < length; i++){
+    let id = "";
+    let puzzleIndexes = [
+      [5, 0],
+      [3, 1],
+      [3, 1],
+      [6, 2],
+      [7, 0]
+    ]
+    if($this.attr('id') != undefined && $this.attr('id').includes('puzzleButton')){
+      let j = $this.attr('id').split('n')[1];
+      buttonNameArray = natoAlphArray[puzzleIndexes[j][0]];
+      if(i == puzzleIndexes[j][1]){
+        id = "puzzleButton" + (Number(j) + 1)
+      }
+    }
     $newButton = $folderButton.clone(true);
+    if(id == 'puzzleButton5'){
+      $newButton = $puzzleButton5.clone(true);
+      $newButton.removeClass("folder")
+      $newButton.addClass("passwordNote")
+    }
+    let names = buttonNameArray.split(',');
     $($newButton[0].childNodes[1]).text(names[i]);
+    $newButton.attr('id', id);
     $modalContainer.append($newButton);
   }
   $modalHeader.append($header, $span);
@@ -190,6 +220,7 @@ async function loadInboxTable(csvUrl) {
 }
 
 
+
 function openNotepad(data) {
   fetch("Text\ Files/" + data[0])
     .then(response => response.text())
@@ -268,6 +299,17 @@ $("#prevButton").on("click", function () {
   audio.play();
 });
 
+$(document).on("dblclick", ".passwordNote", function () {
+  fetch("Text\ Files/More-Passwords.txt")
+      .then(response => response.text())
+      .then(text => {
+        $('#notepadTitle').text('More-Passwords.txt - Notepad');
+        $('#notepadText').val(text);
+      })
+
+    openModal('notepadModal')
+});
+
 audio.addEventListener("timeupdate", () => {
   let seconds = audio.currentTime;
   if (isNaN(seconds)) return "0:00";
@@ -301,18 +343,46 @@ $(document).ready(async function () {
     }
   });
 
-  let inboxTable = await loadInboxTable('Emails/inbox.csv');
+  let inboxCSV = 'Emails/inbox.csv';
+  let sentCSV = 'Emails/sent.csv';
+  let deletedCSV = 'Emails/deleted.csv';
+  let inboxTable = await loadInboxTable(inboxCSV);
+  $('#submitButton').on("click", async function(e) {
+    if ($('#emailUsername').val() == 'stevethompson@aol.com' && $('#password').val() == 'weezer') {
+      inboxCSV = 'Emails/inbox.csv';
+      sentCSV = 'Emails/sent.csv';
+      deletedCSV = 'Emails/deleted.csv';
+      inboxTable = await loadInboxTable(inboxCSV);
+      var inboxModal = document.getElementById("inboxModal");
+      inboxModal.style.display = "block";
+      document.getElementById("passwordModal").style.display = "none";
+      document.getElementById("incorrect").style.display = "none";
+    }
+    else if($('#emailUsername').val() == 'steventurner@aol.com' && $('#password').val() == 'peppercorns'){
+      inboxCSV = 'Emails/otherInbox.csv';
+      sentCSV = 'Emails/otherSent.csv';
+      deletedCSV = 'Emails/otherDeleted.csv';
+      inboxTable = await loadInboxTable(inboxCSV);
+      var inboxModal = document.getElementById("inboxModal");
+      inboxModal.style.display = "block";
+      document.getElementById("passwordModal").style.display = "none";
+      document.getElementById("incorrect").style.display = "none";
+    }
+    else{
+      document.getElementById("incorrect").style.display = "inline";
+    }
+  });
 
   $('#sentMail').on("click", async function(e) {
-    inboxTable = await loadInboxTable('Emails/sent.csv');
+    inboxTable = await loadInboxTable(sentCSV);
   });
 
   $('#deletedMail').on("click", async function(e) {
-    inboxTable = await loadInboxTable('Emails/deleted.csv');
+    inboxTable = await loadInboxTable(deletedCSV);
   });
 
   $('#inboxMail').on("click", async function(e) {
-    inboxTable = await loadInboxTable('Emails/inbox.csv');
+    inboxTable = await loadInboxTable(inboxCSV);
   });
 
   function openEmail(rowData) {
