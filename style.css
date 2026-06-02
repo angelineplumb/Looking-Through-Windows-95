@@ -23,6 +23,31 @@ html{
     cursor: url('Cursors/Normal\ Select.cur'), auto;
 }
 
+#mobile-blocker {
+    display: none;
+}
+
+@media screen and (max-width: 1024px) {
+    #desktop-content {
+        display: none !important;
+    }
+    #mobile-blocker {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        background-image: url('Images/background2.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment:fixed;
+        margin: auto;
+        color:black;
+        z-index: 99999;
+    }
+}
+
 @font-face {
     font-family: 'Fonts/W95';
     src: url('Fonts/W95\ Sans\ Serif.ttf') format('truetype');
