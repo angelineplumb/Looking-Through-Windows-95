@@ -144,12 +144,12 @@
             <div class="modal-body" style="display: flex; justify-content: flex-start; padding-left: 5px; margin: 0px; width:800px; border: 2px outset lightgray; border-top: none;">
                     <p style="padding-right: 15px; margin-top: 0px; margin-bottom: 2px; margin-left: 3px;"><u>F</u>ile</p><p style="padding-right: 15px;  margin-top: 0px; margin-bottom: 2px;"><u>E</u>dit</p><p style="padding-right: 15px;  margin-top: 0px; margin-bottom: 2px;"><u>V</u>iew</p><p style="padding-right: 15px;  margin-top: 0px;margin-bottom: 2px;"><u>M</u>ail</p><p style="padding-right: 15px;  margin-top: 0px;margin-bottom: 2px;"><u>W</u>indow</p><p style="padding-right: 15px;  margin-top: 0px;margin-bottom: 2px;"><u>H</u>elp</p>
                 </div>
-                <div>
-                    <h3 style="border: 2px outset lightgray; margin: 0px;">Inbox</h3>
-                    <div class="container" style="display: flex; vertical-align: middle;">
+                <div style="margin: 25px; margin-top: 0px; border: 2px outset lightgray;">
+                    <h3 style="margin: 0px;">Inbox</h3>
+                    <div class="container" style="display: flex; vertical-align: middle; border: 2px inset lightgray;">
                         <div style="width: 30%; background-color: #fff;">
-                            <h4 style="border: 2px outset lightgray; height: 24px; margin-top: 0px; margin-bottom: 0px; align-items: center; display: flex; padding-left: 10px; border-right: 6px double black; background-color: silver;">Private Folders</h4>
-                            <div style="background-color: white; height: 200px; border-right: 5px double black;">
+                            <h4 style="border: 2px outset lightgray; height: 24px; margin-top: 0px; margin-bottom: 0px; align-items: center; display: flex; padding-left: 10px; border-right: 6px double black; background-color: silver; padding-top: 10px; padding-bottom: 10px;">Private Folders</h4>
+                            <div style="background-color: white; height: 180px; border-right: 5px double black;">
                                 <button id="inboxMail"  type="button" style="text-align: center; width: 50%; background-color: white; border:none; font-size: 16px; padding: 6px; padding-right: 60px; width: 150px;"><img src="Icons/Opened Folder.ico" alt="Icon" width="14" height="14" style="padding-right: 3px;">Inbox</button>
                                 <button id="sentMail"  type="button" style="text-align: center; width: 75%; background-color: white; border:none; font-size: 16px; padding: 6px; padding-right: 30px; width: 150px;"><img src="Icons/Folder.ico" alt="Icon" width="14" height="14" style="padding-right: 3px;">Sent mail</button>
                                 <button id="deletedMail"  type="button" style="text-align: center; width: 50%; background-color: white; border:none; font-size: 16px; padding: 6px; width: 150px;"><img src="Icons/Folder.ico" alt="Icon" width="14" height="14" style="padding-right: 3px;">Deleted mail</button>
@@ -211,11 +211,11 @@
                 <h6>Login to Email</h6>
                 <span id="inboxSpan" class="close">&times;</span>
             </div>
-            <div class="modal-body" style="justify-content: center;">
+            <div class="modal-body" style="justify-content: center; margin-top: 15px;">
                 <p style="color: red; display: none;" id="incorrect">Incorrect login.</p>
                 <form style="padding: 10px; justify-content: center;">
                     <label for="emailUsername" style="font-weight: bolder;">Email:</label>
-                    <input type="text" id="emailUsername" name="emailUsername" style="margin-left: 30px; background-color: white; border: 1px solid black; height: 20px;">
+                    <input type="email" id="emailUsername" name="emailUsername" style="margin-left: 30px; background-color: white; border: 1px solid black; height: 20px;" autocomplete="off">
                     <br><br>
                     <label for="password" style="font-weight: bolder;">Password:</label>
                     <input type="password" id="password" name="password" style="background-color: white; border: 1px solid black;  height: 20px;">
@@ -404,6 +404,36 @@
                 <button id="okNetworkButton" class="button--netscape" type="button" style="text-align: center; justify-self: center;">OK</button>
                 <br>
             </div>
+            </div>
+        </div>
+        <div id="welcomeModal" class="modal" style="width: 800px; top: 20%; display: block;">
+            <div class="modal-content">
+                <div class="modal-header" style="justify-content: left;">
+                    <h6 style="padding-left: 5px;">Welcome</h6>
+                    <span id="inboxSpan" class="close">&times;</span>
+                </div>
+                <div class="modal-body" style="justify-content: center;">
+                    <div style="display: flex; margin-left: 25px;">
+                        <img src="Images/Welcome.png" alt="Icon" width="500px">
+                    </div>
+                    <div class="container" style="display: flex;">
+                        <div style="margin-top: 5px; justify-content: left; border:2px inset lightgray; width:70%; background-color:#fefede; height:400px; margin:30px; margin-top: 0px; align-items: center; text-align: left; margin-right: 0px;">
+                            <div class="container" style="display: flex; justify-content: left; align-items: center; margin:0px; margin-top: 20px;">
+                            <img src="Icons/Tip of the Day.ico" alt="Icon" width="50px" height="50px" style="margin: 20px;">
+                            <h3 style=" padding-left: 10px; font-family: 'Fonts/W95-bold', sans-serif;">Did you know...</h3>
+                            </div>
+                            <h4 id="hintText" style=" margin: 30px;margin-top: 0px;">This computer contains a secret. Explore this remake of a Windows95 computer and learn more about the family who owned it as you open the different applications, folders, and files.<br><br>Don't forget to double-click to open applications and folders.<br><br>Toggle Fullscreen mode for the full immersive experience.</h4>
+                        </div>
+                        <div style="width: 30%;">
+                            <button id="fullscreenButton" class="button--netscape" type="button" style="text-align: center; margin: auto; width: 120px; max-height: 100px; height: 27px; font-size: 11px; justify-content: center; display: flex; align-items: center; margin-bottom: 10px;"><u>T</u>oggle Fullscreen</button>
+                            <button id="aboutButton" class="button--netscape" type="button" style="text-align: center; margin: auto; width: 120px; max-height: 100px; height: 27px; font-size: 11px; justify-content: center; display: flex; align-items: center; margin-bottom: 10px;"><u>A</u>bout</button>
+                            <button id="hintButton" class="button--netscape" type="button" style="text-align: center; margin: auto; margin: auto; width: 120px; max-height: 100px; height: 27px; font-size: 11px; justify-content: center; display: flex; align-items: center; margin-bottom: 10px;"><u>H</u>ints</button>
+                            <div style="text-align: center; margin: auto; width: 180px; font-size: 11px; justify-content: center; display: flex; align-items: center; margin-top: 30px;border-top: 2px inset lightgray;">
+                            </div>
+                            <button id="closeWelcomeButton" class="button--netscape" type="button" style="text-align: center; margin: auto; width: 120px; max-height: 100px; height: 27px; font-size: 11px; justify-content: center; display: flex; align-items: center; margin-top: 20px;"><u>C</u>lose</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <script>

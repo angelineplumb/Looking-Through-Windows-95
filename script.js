@@ -9,6 +9,15 @@ document.getElementById("inboxButton").addEventListener("dblclick", () => {
   openModal('passwordModal');
 });
 
+document.getElementById("helpButton").addEventListener("dblclick", () => {
+  openModal('welcomeModal');
+  $("#startModal").hide()
+});
+
+document.getElementById("closeWelcomeButton").addEventListener("click", () => {
+  $("#welcomeModal").hide()
+});
+
 document.getElementById("inboxStartButton").addEventListener("dblclick", () => {
   openModal('passwordModal');
   $("#startModal").hide()
@@ -209,6 +218,9 @@ async function loadInboxTable(csvUrl) {
       bottomEnd: null
     },
     destroy: true,
+    scrollY: '180px',
+    scrollCollapse: true,
+    paging: false,
     select: true,
     columnDefs: [
       {
@@ -356,7 +368,30 @@ $(document).ready(async function () {
     }
   });
 
-  $("#buttonTime").on("click", function() {
+  let hints = [
+    "Some deleted documents are located in the recycling bin.",
+    "The Paint application shows a cute drawing and some possibly improtant information.",
+    "This computer's owner liked to use the NATO alphabet to spell things out.",
+    "You can switch between different folders in the Inbox application."
+  ]
+  $("#hintButton").on("click", function() {
+    let index = 0;
+    for(let i = 0; i < hints.length; i++){
+      if(hints[i] == $("#hintText").text()){
+        index = i == 3 ? 0 : i + 1;
+        break;
+      }
+    }
+    console.log(index);
+    $("#hintText").text(hints[index]);
+  });
+
+  $("#aboutButton").on("click", function() {
+    var url = "https://sites.google.com/view/looking-through-windows95/home";
+    window.open(url, '_blank');
+  });
+
+  $("#fullscreenButton").on("click", function() {
     if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen();
     } else {
