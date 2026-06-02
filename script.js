@@ -9,6 +9,11 @@ document.getElementById("inboxButton").addEventListener("dblclick", () => {
   openModal('passwordModal');
 });
 
+document.getElementById("inboxStartButton").addEventListener("dblclick", () => {
+  openModal('passwordModal');
+  $("#startModal").hide()
+});
+
 document.getElementById("okButton").addEventListener("click", () => {
   $("#computerModal").hide()
 });
@@ -35,12 +40,22 @@ document.getElementById("recyclingButton").addEventListener("dblclick", () => {
   openModal('recyclingModal');
 });
 
+document.getElementById("recyclingStartButton").addEventListener("dblclick", () => {
+  openModal('recyclingModal');
+  $("#startModal").hide()
+});
+
 document.getElementById("paintButton").addEventListener("dblclick", () => {
   openModal('paintModal');
 });
 
 document.getElementById("musicButton").addEventListener("dblclick", () => {
   openModal('musicModal');
+});
+
+document.getElementById("musicStartButton").addEventListener("dblclick", () => {
+  openModal('musicModal');
+  $("#startModal").hide()
 });
 
 $(document).on("mousedown", ".modal, .modal *", function() {
@@ -243,16 +258,16 @@ recyclingRows.forEach(row => {
 });
 
 const playlist = [
-  "Songs/My\ Name\ Is\ Jonas.mp3",
-  "Songs/No\ One\ Else.mp3",
-  "Songs/The\ World\ Has\ Turned\ And\ Left\ Me\ Here.mp3",
-  "Songs/Buddy\ Holly.mp3",
-  "Songs/Undone\ -\ The\ Sweater\ Song.mp3",
-  "Songs/Surf\ Wax\ America.mp3",
-  "Songs/Say\ It\ Ain't\ So.mp3",
-  "Songs/In\ The\ Garage.mp3",
-  "Songs/Holiday.mp3",
-  "Songs/Only\ in\ Dreams.mp3"
+  "Audio/My\ Name\ Is\ Jonas.mp3",
+  "Audio/No\ One\ Else.mp3",
+  "Audio/The\ World\ Has\ Turned\ And\ Left\ Me\ Here.mp3",
+  "Audio/Buddy\ Holly.mp3",
+  "Audio/Undone\ -\ The\ Sweater\ Song.mp3",
+  "Audio/Surf\ Wax\ America.mp3",
+  "Audio/Say\ It\ Ain't\ So.mp3",
+  "Audio/In\ The\ Garage.mp3",
+  "Audio/Holiday.mp3",
+  "Audio/Only\ in\ Dreams.mp3"
 ];
 
 let currentTrack = 0;
@@ -324,6 +339,23 @@ audio.addEventListener("timeupdate", () => {
 audio.addEventListener("ended", nextTrack);
 
 $(document).ready(async function () {
+  const audio = new Audio("Audio/Windows 95 Startup Sound.mp3");
+  audio.play();
+
+  $('#restartButton').on('dblclick', function(event) {
+    location.reload();
+  });
+
+  $('#startButton').on('click', function(event) {
+    if ($('#startModal').is(':visible')) {
+      $("#startModal").hide()
+    }
+    else{
+      event.stopPropagation();
+      $("#startModal").show()
+    }
+  });
+
   $("#buttonTime").on("click", function() {
     if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen();
@@ -340,6 +372,15 @@ $(document).ready(async function () {
   $(document).on("click", function(e) {
     if ($(e.target).closest(".button--folder").length === 0) {
       $(".button--folder").removeClass("selected");
+    }
+  });
+
+  $(document).on('click', function(event) {
+    var $modalContainer = $('#startModal'); 
+    var $startButton = $('#startButton'); 
+    if (!$modalContainer.is(event.target) && $modalContainer.has(event.target).length === 0 &&
+    !$startButton.is(event.target)) {
+      $('#startModal').hide();
     }
   });
 
